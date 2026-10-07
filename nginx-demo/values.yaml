@@ -1,0 +1,2 @@
+replicaCount: 1
+image: docker.io/library/nginx:1.28.0-alpine
