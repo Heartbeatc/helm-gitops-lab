@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-gitops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Heartbeatc/helm-gitops-lab.git
+    targetRevision: main
+    path: nginx-demo
+    helm:
+      releaseName: demo-gitops
+      valueFiles:
+        - values-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitops-dev
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
